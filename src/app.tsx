@@ -1,6 +1,9 @@
 import {history} from '@umijs/max';
 import {requestConfig} from './requestConfig';
 import {getLoginUserUsingGet} from "@/services/byapi-backend/userController";
+import {RunTimeLayoutConfig} from "@@/plugin-layout/types";
+import React from "react";
+import {AvatarDropdown, AvatarName, Question} from "@/components";
 
 const loginPath = '/user/login';
 const registerPath = '/user/register';
@@ -28,6 +31,24 @@ export async function getInitialState(): Promise<InitialState> {
   }
   return state;
 }
+
+//退出登录，头像显示
+export const layout: RunTimeLayoutConfig = ({initialState}) => {
+  return {
+    actionsRender: () => [<Question key="doc"/>],
+    avatarProps: {
+      src: initialState?.loginUser?.userAvatar,
+      title: <AvatarName/>,
+      render: (_, avatarChildren) => {
+        return <AvatarDropdown>{avatarChildren}</AvatarDropdown>;
+      },
+    },
+    waterMarkProps: {
+      content: initialState?.loginUser?.userName,
+    },
+  };
+};
+
 
 /**
  * @name request 配置，可以配置错误处理

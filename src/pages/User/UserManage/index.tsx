@@ -20,7 +20,6 @@ const UserManage: React.FC = () => {
    */
   const handleUpdate = async (fields: API.UserVo) => {
     const hide = message.loading('正在修改');
-    console.log(fields)
     const res = await updateUserUsingPut({
       id: currentRow?.id,
       ...fields
