@@ -65,6 +65,14 @@ export async function getLoginUserUsingGet(options?: { [key: string]: any }) {
   });
 }
 
+/** logout POST /api/user/logout */
+export async function logoutUsingPost(options?: { [key: string]: any }) {
+  return request<API.ResultVoid_>('/api/user/logout', {
+    method: 'POST',
+    ...(options || {}),
+  });
+}
+
 /** register POST /api/user/register */
 export async function registerUsingPost(
   body: API.UserRegisterDto,
@@ -86,6 +94,21 @@ export async function updateUserUsingPut(
   options?: { [key: string]: any },
 ) {
   return request<API.ResultVoid_>('/api/user/update', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** updateUserStatus PUT /api/user/update/status */
+export async function updateUserStatusUsingPut(
+  body: API.UpdateStatusDto,
+  options?: { [key: string]: any },
+) {
+  return request<API.ResultVoid_>('/api/user/update/status', {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',

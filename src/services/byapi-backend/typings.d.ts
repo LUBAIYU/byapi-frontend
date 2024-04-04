@@ -4,9 +4,67 @@ declare namespace API {
     id: number;
   };
 
+  type delInterfaceInfoUsingDELETEParams = {
+    /** id */
+    id: number;
+  };
+
+  type getInterfaceInfoByIdUsingGETParams = {
+    /** id */
+    id: number;
+  };
+
   type getUserByIdUsingGETParams = {
     /** id */
     id: number;
+  };
+
+  type InterfaceInfoAddDto = {
+    description?: string;
+    method?: string;
+    name?: string;
+    requestHeader?: string;
+    requestParams?: string;
+    responseHeader?: string;
+    status?: number;
+    url?: string;
+  };
+
+  type InterfaceInfoUpdateDto = {
+    description?: string;
+    id?: number;
+    method?: string;
+    name?: string;
+    requestHeader?: string;
+    requestParams?: string;
+    responseHeader?: string;
+    status?: number;
+    url?: string;
+  };
+
+  type InterfaceInfoVo = {
+    createTime?: string;
+    description?: string;
+    id?: number;
+    method?: string;
+    name?: string;
+    requestHeader?: string;
+    requestParams?: string;
+    responseHeader?: string;
+    status?: number;
+    updateTime?: string;
+    url?: string;
+    userId?: number;
+  };
+
+  type listInterfaceInfosByPageUsingGETParams = {
+    current?: number;
+    id?: number;
+    method?: string;
+    name?: string;
+    pageSize?: number;
+    status?: number;
+    url?: string;
   };
 
   type listUsersByPageUsingGETParams = {
@@ -19,9 +77,26 @@ declare namespace API {
     userName?: string;
   };
 
+  type PageBeanInterfaceInfoVo_ = {
+    records?: InterfaceInfoVo[];
+    total?: number;
+  };
+
   type PageBeanUserVo_ = {
     records?: UserVo[];
     total?: number;
+  };
+
+  type ResultInterfaceInfoVo_ = {
+    code?: number;
+    data?: InterfaceInfoVo;
+    message?: string;
+  };
+
+  type ResultPageBeanInterfaceInfoVo_ = {
+    code?: number;
+    data?: PageBeanInterfaceInfoVo_;
+    message?: string;
   };
 
   type ResultPageBeanUserVo_ = {
@@ -41,6 +116,16 @@ declare namespace API {
     message?: string;
   };
 
+  type StatusUpdateDto = {
+    id?: number;
+    status?: number;
+  };
+
+  type UpdateStatusDto = {
+    id?: number;
+    status?: number;
+  };
+
   type UserLoginDto = {
     userAccount?: string;
     userPassword?: string;
@@ -57,7 +142,6 @@ declare namespace API {
     id?: number;
     status?: number;
     userAccount?: string;
-    userAvatar?: string;
     userName?: string;
     userRole?: string;
   };
