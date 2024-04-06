@@ -15,10 +15,24 @@ export type Props = {
 const UpdateModal: React.FC<Props> = (props) => {
     const {values, onSubmit, onCancel, visible, columns} = props;
     const formRef = useRef<ProFormInstance>();
+    //提交表单
+    const handleSubmit = async (values: API.InterfaceInfoVo) => {
+      const currentStatus = formRef.current?.getFieldValue("status");
+      const newValues = {
+        ...values,
+        status: currentStatus === '关闭' || currentStatus === '0' ? 0 : 1
+      };
+      await onSubmit(newValues);
+    }
+
     //监听values的变化
     useEffect(() => {
       if (formRef) {
         formRef.current?.setFieldsValue(values);
+        const statusMap = {0: '关闭', 1: '开启'};
+        formRef.current?.setFieldsValue({
+          status: values.status === 0 ? statusMap[0] : statusMap[1]
+        });
       }
     }, [values]);
     return (
@@ -28,7 +42,7 @@ const UpdateModal: React.FC<Props> = (props) => {
           type={'form'}
           columns={columns}
           onSubmit={async (value) => {
-            onSubmit?.(value);
+            handleSubmit?.(value);
           }}
         ></ProTable>
       </Modal>

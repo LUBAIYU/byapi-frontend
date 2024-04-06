@@ -57,7 +57,7 @@ const UserManage: React.FC = () => {
     }
   };
 
-//定义数据列表
+  //定义数据列表
   const columns: ProColumns<API.UserVo>[] = [
     {
       title: 'ID',
@@ -126,7 +126,14 @@ const UserManage: React.FC = () => {
     {
       title: '角色',
       dataIndex: 'userRole',
-      valueType: 'text',
+      valueEnum: {
+        'admin': {
+          text: '管理员'
+        },
+        'user': {
+          text: '普通用户'
+        }
+      },
       hideInSearch: true,
       width: 100,
       align: "center",

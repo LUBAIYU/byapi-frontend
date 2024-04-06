@@ -130,7 +130,20 @@ const InterfaceInfoManage: React.FC = () => {
     {
       title: '请求类型',
       dataIndex: 'method',
-      valueType: 'text',
+      valueEnum: {
+        'GET': {
+          text: 'GET'
+        },
+        'POST': {
+          text: 'POST',
+        },
+        'PUT': {
+          text: 'PUT',
+        },
+        'DELETE': {
+          text: 'DELETE',
+        }
+      },
       align: 'center',
     },
     {
