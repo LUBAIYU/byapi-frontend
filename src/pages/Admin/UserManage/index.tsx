@@ -6,7 +6,7 @@ import {
   updateUserUsingPut
 } from "@/services/byapi-backend/userController";
 import {Button, Image, message, Popconfirm} from "antd";
-import UpdateModal from "@/pages/User/UserManage/components/UpdateModal";
+import UpdateModal from "@/pages/Admin/UserManage/components/UpdateModal";
 
 const UserManage: React.FC = () => {
 

@@ -1,9 +1,9 @@
 export default [
   {
-    path: '/welcome',
-    name: '欢迎',
-    icon: 'smile',
-    component: './Welcome',
+    name: '主页',
+    icon: 'CloudOutlined',
+    path: '/home',
+    component: './Home'
   },
   {
     path: '/user',
@@ -13,19 +13,25 @@ export default [
       {name: '注册', path: '/user/register', component: './User/Register'}],
   },
   {
-    path: '/user-manage',
     name: '用户管理',
-    icon: 'UserOutlined',
     access: 'canAdmin',
-    component: './User/UserManage',
+    icon: 'UserOutlined',
+    path: '/admin/user-manage',
+    component: './Admin/UserManage'
   },
   {
-    path: '/interfaceInfo-manage',
     name: '接口管理',
-    icon: 'FolderOpenOutlined',
     access: 'canAdmin',
-    component: './InterfaceInfo'
+    icon: 'FolderOpenOutlined',
+    path: '/admin/interface-manage',
+    component: './Admin/InterfaceManage'
   },
-  {path: '/', redirect: '/welcome'},
+  {
+    name: '接口详情',
+    path: '/interface_info/:id',
+    component: './InterfaceInfo',
+    hideInMenu: true
+  },
+  {path: '/', redirect: '/home'},
   {path: '*', layout: false, component: './404'},
 ];
