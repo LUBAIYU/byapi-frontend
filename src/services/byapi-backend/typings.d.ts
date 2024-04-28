@@ -1,25 +1,39 @@
 declare namespace API {
+  type alterStatusUsingPUT1Params = {
+    /** id */
+    id?: number;
+    /** status */
+    status?: number;
+  };
+
+  type alterStatusUsingPUTParams = {
+    /** id */
+    id?: number;
+    /** status */
+    status?: number;
+  };
+
+  type deleteInterfaceUsingDELETEParams = {
+    /** id */
+    id: number;
+  };
+
   type deleteUserUsingDELETEParams = {
     /** id */
     id: number;
   };
 
-  type delInterfaceInfoUsingDELETEParams = {
+  type getAvatarUsingGETParams = {
+    /** fileName */
+    fileName: string;
+  };
+
+  type getInterfaceByIdUsingGETParams = {
     /** id */
     id: number;
   };
 
-  type getInterfaceInfoByIdUsingGETParams = {
-    /** id */
-    id: number;
-  };
-
-  type getUserByIdUsingGETParams = {
-    /** id */
-    id: number;
-  };
-
-  type InterfaceInfoAddDto = {
+  type InterfaceAddDto = {
     description?: string;
     method?: string;
     name?: string;
@@ -30,22 +44,11 @@ declare namespace API {
     url?: string;
   };
 
-  type InterfaceInfoUpdateDto = {
-    description?: string;
-    id?: number;
-    method?: string;
-    name?: string;
-    requestHeader?: string;
-    requestParams?: string;
-    responseHeader?: string;
-    status?: number;
-    url?: string;
-  };
-
-  type InterfaceInfoVo = {
+  type InterfaceInfo = {
     createTime?: string;
     description?: string;
     id?: number;
+    isDeleted?: number;
     method?: string;
     name?: string;
     requestHeader?: string;
@@ -56,7 +59,18 @@ declare namespace API {
     url?: string;
   };
 
-  type listInterfaceInfosByPageUsingGETParams = {
+  type InterfaceUpdateDto = {
+    description?: string;
+    id?: number;
+    method?: string;
+    name?: string;
+    requestHeader?: string;
+    requestParams?: string;
+    responseHeader?: string;
+    url?: string;
+  };
+
+  type listInterfacesByPageUsingGETParams = {
     current?: number;
     id?: number;
     method?: string;
@@ -76,31 +90,48 @@ declare namespace API {
     userName?: string;
   };
 
-  type PageBeanInterfaceInfoVo_ = {
-    records?: InterfaceInfoVo[];
+  type LoginDto = {
+    userAccount?: string;
+    userPassword?: string;
+  };
+
+  type PageBeanInterfaceInfo_ = {
+    records?: InterfaceInfo[];
     total?: number;
   };
 
-  type PageBeanUserVo_ = {
-    records?: UserVo[];
+  type PageBeanUser_ = {
+    records?: User[];
     total?: number;
   };
 
-  type ResultInterfaceInfoVo_ = {
+  type RegisterDto = {
+    confirmPassword?: string;
+    userAccount?: string;
+    userPassword?: string;
+  };
+
+  type ResultInterfaceInfo_ = {
     code?: number;
-    data?: InterfaceInfoVo;
+    data?: InterfaceInfo;
     message?: string;
   };
 
-  type ResultPageBeanInterfaceInfoVo_ = {
+  type ResultPageBeanInterfaceInfo_ = {
     code?: number;
-    data?: PageBeanInterfaceInfoVo_;
+    data?: PageBeanInterfaceInfo_;
     message?: string;
   };
 
-  type ResultPageBeanUserVo_ = {
+  type ResultPageBeanUser_ = {
     code?: number;
-    data?: PageBeanUserVo_;
+    data?: PageBeanUser_;
+    message?: string;
+  };
+
+  type ResultString_ = {
+    code?: number;
+    data?: string;
     message?: string;
   };
 
@@ -115,25 +146,21 @@ declare namespace API {
     message?: string;
   };
 
-  type StatusUpdateDto = {
+  type User = {
+    accessKey?: string;
+    createTime?: string;
+    gender?: number;
     id?: number;
+    isDeleted?: number;
+    salt?: string;
+    secretKey?: string;
     status?: number;
-  };
-
-  type UpdateStatusDto = {
-    id?: number;
-    status?: number;
-  };
-
-  type UserLoginDto = {
+    updateTime?: string;
     userAccount?: string;
+    userAvatar?: string;
+    userName?: string;
     userPassword?: string;
-  };
-
-  type UserRegisterDto = {
-    checkPassword?: string;
-    userAccount?: string;
-    userPassword?: string;
+    userRole?: string;
   };
 
   type UserUpdateDto = {
@@ -141,6 +168,7 @@ declare namespace API {
     id?: number;
     status?: number;
     userAccount?: string;
+    userAvatar?: string;
     userName?: string;
     userRole?: string;
   };
@@ -149,7 +177,6 @@ declare namespace API {
     createTime?: string;
     gender?: number;
     id?: number;
-    status?: number;
     updateTime?: string;
     userAccount?: string;
     userAvatar?: string;

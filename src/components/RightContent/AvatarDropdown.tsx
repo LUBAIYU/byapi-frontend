@@ -6,7 +6,7 @@ import type {MenuInfo} from 'rc-menu/lib/interface';
 import React, {useCallback} from 'react';
 import {flushSync} from 'react-dom';
 import HeaderDropdown from '../HeaderDropdown';
-import {logoutUsingPost} from "@/services/byapi-backend/userController";
+import {userLogoutUsingPost} from "@/services/byapi-backend/userController";
 
 export type GlobalHeaderRightProps = {
   menu?: boolean;
@@ -49,7 +49,7 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({menu, children
         flushSync(() => {
           setInitialState((s) => ({...s, currentUser: undefined}));
         });
-        logoutUsingPost();
+        userLogoutUsingPost();
         const {search, pathname} = window.location;
         const redirect = search + pathname;
         history.replace("/user/login", {redirect})

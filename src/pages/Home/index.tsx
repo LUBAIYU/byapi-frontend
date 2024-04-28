@@ -1,17 +1,17 @@
 import React, {useEffect, useState} from "react";
 import {PageContainer} from "@ant-design/pro-components";
-import {listInterfaceInfosByPageUsingGet} from "@/services/byapi-backend/interfaceInfoController";
 import {List, message} from "antd";
+import {listInterfacesByPageUsingGet} from "@/services/byapi-backend/interfaceController";
 
 const Index: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
-  const [dataList, setDataList] = useState<API.InterfaceInfoVo[]>([]);
+  const [dataList, setDataList] = useState<API.InterfaceInfo[]>([]);
   const [total, setTotal] = useState<number>(0);
 
   //获取接口数据列表
   const getDataList = async (current = 1, pageSize = 10) => {
     setLoading(true);
-    const res = await listInterfaceInfosByPageUsingGet({current, pageSize});
+    const res = await listInterfacesByPageUsingGet({current, pageSize});
     if (res.code === 200) {
       setDataList(res?.data?.records ?? []);
       setTotal(res?.data?.total ?? 0);

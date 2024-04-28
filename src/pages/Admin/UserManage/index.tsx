@@ -18,7 +18,7 @@ const UserManage: React.FC = () => {
    * 更新用户数据
    * @param fields
    */
-  const handleUpdate = async (fields: API.UserVo) => {
+  const handleUpdate = async (fields: API.UserInfo) => {
     const hide = message.loading('正在修改');
     const res = await updateUserUsingPut({
       id: currentRow?.id,
@@ -40,7 +40,7 @@ const UserManage: React.FC = () => {
    * 根据ID删除用户数据
    * @param record
    */
-  const handleRemove = async (record: API.UserVo) => {
+  const handleRemove = async (record: API.UserInfo) => {
     const hide = message.loading('正在删除');
     if (!record) return true;
     const res = await deleteUserUsingDelete({
@@ -58,7 +58,7 @@ const UserManage: React.FC = () => {
   };
 
   //定义数据列表
-  const columns: ProColumns<API.UserVo>[] = [
+  const columns: ProColumns<API.UserInfo>[] = [
     {
       title: 'ID',
       dataIndex: 'id',
@@ -185,7 +185,7 @@ const UserManage: React.FC = () => {
 
   return (
     <PageContainer>
-      <ProTable<API.UserVo, API.listUsersByPageUsingGETParams>
+      <ProTable<API.UserInfo, API.listUsersByPageUsingGETParams>
         headerTitle={"用户管理"}
         rowKey="key"
         actionRef={actionRef}

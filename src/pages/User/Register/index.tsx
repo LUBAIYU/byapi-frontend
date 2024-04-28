@@ -5,7 +5,8 @@ import {message, Tabs} from 'antd';
 import {createStyles} from 'antd-style';
 import React from 'react';
 import Settings from '../../../../config/defaultSettings';
-import {registerUsingPost} from "@/services/byapi-backend/userController";
+import {userRegisterUsingPost} from "@/services/byapi-backend/userController";
+
 
 const useStyles = createStyles(({token}) => {
   return {
@@ -44,10 +45,10 @@ const useStyles = createStyles(({token}) => {
 });
 const Register: React.FC = () => {
   const {styles} = useStyles();
-  const handleSubmit = async (values: API.UserLoginDto) => {
+  const handleSubmit = async (values: API.RegisterDto) => {
     try {
       // 注册
-      const res = await registerUsingPost({
+      const res = await userRegisterUsingPost({
         ...values,
       });
       if (res.code === 200) {
@@ -88,7 +89,7 @@ const Register: React.FC = () => {
             }
           }}
           onFinish={async (values) => {
-            await handleSubmit(values as API.UserRegisterDto);
+            await handleSubmit(values as API.RegisterDto);
           }}
         >
           <Tabs

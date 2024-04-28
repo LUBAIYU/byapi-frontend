@@ -5,7 +5,7 @@ import {message, Tabs} from 'antd';
 import {createStyles} from 'antd-style';
 import React from 'react';
 import Settings from '../../../../config/defaultSettings';
-import {loginUsingPost} from "@/services/byapi-backend/userController";
+import {userLoginUsingPost} from "@/services/byapi-backend/userController";
 
 const useStyles = createStyles(({token}) => {
   return {
@@ -45,10 +45,10 @@ const useStyles = createStyles(({token}) => {
 const Login: React.FC = () => {
   const {styles} = useStyles();
   const {setInitialState} = useModel('@@initialState');
-  const handleSubmit = async (values: API.UserLoginDto) => {
+  const handleSubmit = async (values: API.LoginDto) => {
     try {
       // 登录
-      const res = await loginUsingPost({
+      const res = await userLoginUsingPost({
         ...values,
       });
       if (res.code === 200) {
@@ -88,7 +88,7 @@ const Login: React.FC = () => {
           title="API 接口开放平台"
           subTitle={'一个基于API网关的接口开放平台'}
           onFinish={async (values) => {
-            await handleSubmit(values as API.UserLoginDto);
+            await handleSubmit(values as API.LoginDto);
           }}
         >
           <Tabs

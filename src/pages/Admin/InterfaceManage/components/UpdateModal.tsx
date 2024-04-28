@@ -5,18 +5,18 @@ import React, {useEffect, useRef} from 'react';
 
 
 export type Props = {
-  columns: ProColumns<API.InterfaceInfoVo>[];
+  columns: ProColumns<API.InterfaceInfo>[];
   onCancel: () => void;
-  onSubmit: (values: API.InterfaceInfoVo) => Promise<void>;
+  onSubmit: (values: API.InterfaceInfo) => Promise<void>;
   visible: boolean;
-  values: API.InterfaceInfoVo;
+  values: API.InterfaceInfo;
 };
 
 const UpdateModal: React.FC<Props> = (props) => {
     const {values, onSubmit, onCancel, visible, columns} = props;
     const formRef = useRef<ProFormInstance>();
     //提交表单
-    const handleSubmit = async (values: API.InterfaceInfoVo) => {
+    const handleSubmit = async (values: API.InterfaceInfo) => {
       const currentStatus = formRef.current?.getFieldValue("status");
       const newValues = {
         ...values,

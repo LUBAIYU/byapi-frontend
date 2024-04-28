@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {PageContainer} from "@ant-design/pro-components";
-import {Button, Card, Descriptions, DescriptionsProps, Divider, Form, message, Input} from "antd";
+import {Button, Card, Descriptions, DescriptionsProps, Divider, Form, Input, message} from "antd";
 import {useParams} from "@@/exports";
-import {getInterfaceInfoByIdUsingGet} from "@/services/byapi-backend/interfaceInfoController";
+import {getInterfaceByIdUsingGet} from "@/services/byapi-backend/interfaceController";
 
 const Index: React.FC = () => {
-  const [record, setRecord] = useState<API.InterfaceInfoVo>();
+  const [record, setRecord] = useState<API.InterfaceInfo>();
 
   const items: DescriptionsProps['items'] = [
     {
@@ -52,7 +52,7 @@ const Index: React.FC = () => {
 
   const params = useParams();
   const getInterfaceInfoById = async () => {
-    const res = await getInterfaceInfoByIdUsingGet({
+    const res = await getInterfaceByIdUsingGet({
       id: Number(params?.id),
     });
     if (res.code === 200) {

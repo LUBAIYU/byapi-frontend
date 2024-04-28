@@ -1,30 +1,28 @@
 import React, {useRef, useState} from "react";
 import {ActionType, PageContainer, ProColumns, ProTable} from "@ant-design/pro-components";
 import {Button, message, Popconfirm} from "antd";
-import {
-  addInterfaceInfoUsingPost,
-  delInterfaceInfoUsingDelete,
-  listInterfaceInfosByPageUsingGet,
-  updateInterfaceInfoStatusUsingPut,
-  updateInterfaceInfoUsingPut
-} from "@/services/byapi-backend/interfaceInfoController";
 import {PlusOutlined} from "@ant-design/icons";
 import UpdateModal from "@/pages/Admin/InterfaceManage/components/UpdateModal";
 import AddModal from "@/pages/Admin/InterfaceManage/components/AddModal";
+import {
+  addInterfaceUsingPost, alterStatusUsingPut,
+  deleteInterfaceUsingDelete, listInterfacesByPageUsingGet,
+  updateInterfaceUsingPut
+} from "@/services/byapi-backend/interfaceController";
 
 const InterfaceInfoManage: React.FC = () => {
   //引用对象
   const actionRef = useRef<ActionType>();
-  const [currentRow, setCurrentRow] = useState<API.InterfaceInfoVo>()
+  const [currentRow, setCurrentRow] = useState<API.InterfaceInfo>()
   const [addModalVisible, handleAddModalVisible] = useState<boolean>(false);
   const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(false);
 
   /**
    * 新增接口
    */
-  const addInterfaceInfo = async (fields: API.InterfaceInfoAddDto) => {
+  const addInterfaceInfo = async (fields: API.InterfaceAddDto) => {
     const hide = message.loading("新增中");
-    const res = await addInterfaceInfoUsingPost({
+    const res = await addInterfaceUsingPost({
       ...fields
     })
     hide();
@@ -40,9 +38,9 @@ const InterfaceInfoManage: React.FC = () => {
   /**
    * 修改接口
    */
-  const updateInterfaceInfo = async (fields: API.InterfaceInfoVo) => {
+  const updateInterfaceInfo = async (fields: API.InterfaceInfo) => {
     const hide = message.loading("修改中");
-    const res = await updateInterfaceInfoUsingPut({
+    const res = await updateInterfaceUsingPut({
       id: currentRow?.id,
       ...fields
     })
@@ -60,14 +58,14 @@ const InterfaceInfoManage: React.FC = () => {
   /**
    * 删除接口
    */
-  const deleteInterfaceInfo = async (record: API.InterfaceInfoVo) => {
+  const deleteInterfaceInfo = async (record: API.InterfaceInfo) => {
     const hide = message.loading("删除中");
     if (!record) {
       return;
     }
-    const res = await delInterfaceInfoUsingDelete({
+    const res = await deleteInterfaceUsingDelete({
       id: record.id
-    } as API.delInterfaceInfoUsingDELETEParams)
+    } as API.deleteInterfaceUsingDELETEParams)
     hide();
     if (res.code === 200) {
       message.success("删除成功");
@@ -80,13 +78,13 @@ const InterfaceInfoManage: React.FC = () => {
   /**
    * 修改接口状态
    */
-  const updateStatus = async (record: API.InterfaceInfoVo) => {
+  const updateStatus = async (record: API.InterfaceInfo) => {
     const hide = message.loading("修改中");
     let newStatus = 0;
     if (record.status === 0) {
       newStatus = 1;
     }
-    const res = await updateInterfaceInfoStatusUsingPut({
+    const res = await alterStatusUsingPut({
       id: record.id,
       status: newStatus
     });
@@ -100,7 +98,7 @@ const InterfaceInfoManage: React.FC = () => {
   }
 
   //定义数据列表
-  const columns: ProColumns<API.InterfaceInfoVo>[] = [
+  const columns: ProColumns<API.InterfaceInfo>[] = [
     {
       title: 'ID',
       dataIndex: 'id',
@@ -236,7 +234,6 @@ const InterfaceInfoManage: React.FC = () => {
             </Button>
           )
         }
-        ;
         return buttons;
       },
       align: 'center',
@@ -245,7 +242,7 @@ const InterfaceInfoManage: React.FC = () => {
 
   return (
     <PageContainer>
-      <ProTable<API.InterfaceInfoVo, API.listInterfaceInfosByPageUsingGETParams>
+      <ProTable<API.InterfaceInfo, API.listInterfacesByPageUsingGETParams>
         headerTitle={"接口管理"}
         rowKey="key"
         actionRef={actionRef}
@@ -267,7 +264,7 @@ const InterfaceInfoManage: React.FC = () => {
         request={async (
           params,
         ) => {
-          const res = await listInterfaceInfosByPageUsingGet({
+          const res = await listInterfacesByPageUsingGet({
             ...params
           });
           if (res.data) {

@@ -3,9 +3,9 @@ import {ProColumns, ProTable} from "@ant-design/pro-components";
 import {Modal} from "antd";
 
 export type Props = {
-  columns: ProColumns<API.InterfaceInfoVo>[];
+  columns: ProColumns<API.InterfaceInfo>[];
   onCancel: () => void;
-  onSubmit: (values: API.InterfaceInfoVo) => Promise<void>;
+  onSubmit: (values: API.InterfaceInfo) => Promise<void>;
   visible: boolean;
 }
 const AddModal: React.FC<Props> = (props) => {

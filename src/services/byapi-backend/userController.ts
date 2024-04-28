@@ -2,41 +2,84 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
-/** deleteUser DELETE /api/user/delete/${param0} */
+/** alterStatus PUT /user/alter/status */
+export async function alterStatusUsingPut1(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.alterStatusUsingPUT1Params,
+  options?: { [key: string]: any },
+) {
+  return request<API.ResultVoid_>('/user/alter/status', {
+    method: 'PUT',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}
+
+/** deleteUser DELETE /user/delete/${param0} */
 export async function deleteUserUsingDelete(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.deleteUserUsingDELETEParams,
   options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<API.ResultVoid_>(`/api/user/delete/${param0}`, {
+  return request<API.ResultVoid_>(`/user/delete/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
     ...(options || {}),
   });
 }
 
-/** getUserById GET /api/user/get/${param0} */
-export async function getUserByIdUsingGet(
+/** getAvatar GET /user/get/avatar/${param0} */
+export async function getAvatarUsingGet(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.getUserByIdUsingGETParams,
+  params: API.getAvatarUsingGETParams,
   options?: { [key: string]: any },
 ) {
-  const { id: param0, ...queryParams } = params;
-  return request<API.ResultUserVo_>(`/api/user/get/${param0}`, {
+  const { fileName: param0, ...queryParams } = params;
+  return request<any>(`/user/get/avatar/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
     ...(options || {}),
   });
 }
 
-/** listUsersByPage GET /api/user/list/page */
+/** getLoginUser GET /user/get/loginUser */
+export async function getLoginUserUsingGet(options?: { [key: string]: any }) {
+  return request<API.ResultUserVo_>('/user/get/loginUser', {
+    method: 'GET',
+    ...(options || {}),
+  });
+}
+
+/** userLogin POST /user/login */
+export async function userLoginUsingPost(body: API.LoginDto, options?: { [key: string]: any }) {
+  return request<API.ResultUserVo_>('/user/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** userLogout POST /user/logout */
+export async function userLogoutUsingPost(options?: { [key: string]: any }) {
+  return request<API.ResultVoid_>('/user/logout', {
+    method: 'POST',
+    ...(options || {}),
+  });
+}
+
+/** listUsersByPage GET /user/page */
 export async function listUsersByPageUsingGet(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.listUsersByPageUsingGETParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.ResultPageBeanUserVo_>('/api/user/list/page', {
+  return request<API.ResultPageBeanUser_>('/user/page', {
     method: 'GET',
     params: {
       ...params,
@@ -45,40 +88,12 @@ export async function listUsersByPageUsingGet(
   });
 }
 
-/** login POST /api/user/login */
-export async function loginUsingPost(body: API.UserLoginDto, options?: { [key: string]: any }) {
-  return request<API.ResultUserVo_>('/api/user/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    data: body,
-    ...(options || {}),
-  });
-}
-
-/** getLoginUser GET /api/user/loginUser */
-export async function getLoginUserUsingGet(options?: { [key: string]: any }) {
-  return request<API.ResultUserVo_>('/api/user/loginUser', {
-    method: 'GET',
-    ...(options || {}),
-  });
-}
-
-/** logout POST /api/user/logout */
-export async function logoutUsingPost(options?: { [key: string]: any }) {
-  return request<API.ResultVoid_>('/api/user/logout', {
-    method: 'POST',
-    ...(options || {}),
-  });
-}
-
-/** register POST /api/user/register */
-export async function registerUsingPost(
-  body: API.UserRegisterDto,
+/** userRegister POST /user/register */
+export async function userRegisterUsingPost(
+  body: API.RegisterDto,
   options?: { [key: string]: any },
 ) {
-  return request<API.ResultVoid_>('/api/user/register', {
+  return request<API.ResultVoid_>('/user/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -88,12 +103,12 @@ export async function registerUsingPost(
   });
 }
 
-/** updateUser PUT /api/user/update */
+/** updateUser PUT /user/update */
 export async function updateUserUsingPut(
   body: API.UserUpdateDto,
   options?: { [key: string]: any },
 ) {
-  return request<API.ResultVoid_>('/api/user/update', {
+  return request<API.ResultVoid_>('/user/update', {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -103,17 +118,30 @@ export async function updateUserUsingPut(
   });
 }
 
-/** updateUserStatus PUT /api/user/update/status */
-export async function updateUserStatusUsingPut(
-  body: API.UpdateStatusDto,
-  options?: { [key: string]: any },
-) {
-  return request<API.ResultVoid_>('/api/user/update/status', {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    data: body,
+/** uploadAvatar POST /user/upload/avatar */
+export async function uploadAvatarUsingPost(body: string, options?: { [key: string]: any }) {
+  const formData = new FormData();
+
+  Object.keys(body).forEach((ele) => {
+    const item = (body as any)[ele];
+
+    if (item !== undefined && item !== null) {
+      if (typeof item === 'object' && !(item instanceof File)) {
+        if (item instanceof Array) {
+          item.forEach((f) => formData.append(ele, f || ''));
+        } else {
+          formData.append(ele, JSON.stringify(item));
+        }
+      } else {
+        formData.append(ele, item);
+      }
+    }
+  });
+
+  return request<API.ResultString_>('/user/upload/avatar', {
+    method: 'POST',
+    data: formData,
+    requestType: 'form',
     ...(options || {}),
   });
 }

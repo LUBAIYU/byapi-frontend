@@ -4,18 +4,18 @@ import {Modal} from 'antd';
 import React, {useEffect, useRef} from 'react';
 
 export type Props = {
-  columns: ProColumns<API.UserVo>[];
+  columns: ProColumns<API.UserInfo>[];
   onCancel: () => void;
-  onSubmit: (values: API.UserVo) => Promise<void>;
+  onSubmit: (values: API.UserInfo) => Promise<void>;
   visible: boolean;
-  values: API.UserVo;
+  values: API.UserInfo;
 };
 
 const UpdateModal: React.FC<Props> = (props) => {
     const {values, onSubmit, onCancel, visible, columns} = props;
     const formRef = useRef<ProFormInstance>();
     // 提交表单
-    const handleSubmit = async (values: API.UserVo) => {
+    const handleSubmit = async (values: API.UserInfo) => {
       const currentGender = formRef.current?.getFieldValue("gender");
       const currentStatus = formRef.current?.getFieldValue("status");
       const newValues = {
