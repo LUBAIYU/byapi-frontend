@@ -5,7 +5,7 @@
  */
 export const requestConfig: RequestConfig = {
   // 请求地址
-  baseURL: 'http://localhost:8080',
+  baseURL: 'http://localhost:8080/api',
   // 允许携带cookie
   withCredentials: true,
   // 请求拦截器
