@@ -59,6 +59,11 @@ declare namespace API {
     url?: string;
   };
 
+  type InterfaceInvokeDto = {
+    id?: number;
+    userRequestParams?: string;
+  };
+
   type InterfaceUpdateDto = {
     description?: string;
     id?: number;
@@ -114,6 +119,12 @@ declare namespace API {
   type ResultInterfaceInfo_ = {
     code?: number;
     data?: InterfaceInfo;
+    message?: string;
+  };
+
+  type ResultObject_ = {
+    code?: number;
+    data?: Record<string, any>;
     message?: string;
   };
 

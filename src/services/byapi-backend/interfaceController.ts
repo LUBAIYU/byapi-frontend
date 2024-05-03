@@ -60,6 +60,21 @@ export async function getInterfaceByIdUsingGet(
   });
 }
 
+/** invokeInterface POST /interface/invoke */
+export async function invokeInterfaceUsingPost(
+  body: API.InterfaceInvokeDto,
+  options?: { [key: string]: any },
+) {
+  return request<API.ResultObject_>('/interface/invoke', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
 /** listInterfacesByPage GET /interface/page */
 export async function listInterfacesByPageUsingGet(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)

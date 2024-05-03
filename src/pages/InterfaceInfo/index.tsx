@@ -2,10 +2,11 @@ import React, {useEffect, useState} from "react";
 import {PageContainer} from "@ant-design/pro-components";
 import {Button, Card, Descriptions, DescriptionsProps, Divider, Form, Input, message} from "antd";
 import {useParams} from "@@/exports";
-import {getInterfaceByIdUsingGet} from "@/services/byapi-backend/interfaceController";
+import {getInterfaceByIdUsingGet, invokeInterfaceUsingPost} from "@/services/byapi-backend/interfaceController";
 
 const Index: React.FC = () => {
   const [record, setRecord] = useState<API.InterfaceInfo>();
+  const [invokeResult, setInvokeResult] = useState<any>()
 
   const items: DescriptionsProps['items'] = [
     {
@@ -62,6 +63,22 @@ const Index: React.FC = () => {
     }
   }
 
+  const invokeInterface = async (values: any) => {
+    if (!params.id) {
+      message.error('id不能为空');
+      return;
+    }
+    const res = await invokeInterfaceUsingPost({
+      id: Number(params.id),
+      ...values
+    })
+    if (res.code === 200) {
+      setInvokeResult(res.data)
+    } else {
+      message.error(res.message)
+    }
+  }
+
   useEffect(() => {
     getInterfaceInfoById();
   }, []);
@@ -75,7 +92,7 @@ const Index: React.FC = () => {
       </Card>
       <Divider/>
       <Card title="在线调试">
-        <Form layout="vertical">
+        <Form layout="vertical" onFinish={invokeInterface}>
           <Form.Item label="请求参数" name="userRequestParams">
             <Input.TextArea/>
           </Form.Item>
@@ -88,7 +105,7 @@ const Index: React.FC = () => {
       </Card>
       <Divider/>
       <Card title="测试结果">
-
+        {invokeResult}
       </Card>
     </PageContainer>
   )
