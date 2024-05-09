@@ -2,7 +2,11 @@ import React, {useEffect, useState} from "react";
 import {PageContainer} from "@ant-design/pro-components";
 import {Button, Card, Descriptions, DescriptionsProps, Divider, Form, Input, message} from "antd";
 import {useParams} from "@@/exports";
-import {getInterfaceByIdUsingGet, invokeInterfaceUsingPost} from "@/services/byapi-backend/interfaceController";
+import {
+  getInterfaceByIdUsingGet,
+  invokeInterfaceUsingPost,
+  openPermissionUsingPost
+} from "@/services/byapi-backend/interfaceController";
 
 const Index: React.FC = () => {
   const [record, setRecord] = useState<API.InterfaceInfo>();
@@ -79,8 +83,20 @@ const Index: React.FC = () => {
     }
   }
 
+  //开通接口调用权限
+  const openPermission = async () => {
+    const res = await openPermissionUsingPost({
+      interfaceId: Number(params.id)
+    })
+    if (res.code === 200) {
+      message.success('开通成功')
+    } else {
+      message.error(res.message)
+    }
+  }
+
   useEffect(() => {
-    getInterfaceInfoById();
+    getInterfaceInfoById().then();
   }, []);
 
   return (
@@ -89,7 +105,7 @@ const Index: React.FC = () => {
         {
           record ? <Descriptions items={items} column={1}/> : <>接口不存在</>
         }
-        <Button type={"primary"}>开通接口调用权限</Button>
+        <Button onClick={openPermission} type={"primary"}>开通接口调用权限</Button>
       </Card>
       <Divider/>
       <Card title="在线调试">
