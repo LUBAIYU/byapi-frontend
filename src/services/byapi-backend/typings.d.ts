@@ -23,6 +23,16 @@ declare namespace API {
     id: number;
   };
 
+  type delUserInterfaceUsingDELETEParams = {
+    /** id */
+    id?: number;
+  };
+
+  type EmailDto = {
+    email?: string;
+    verCode?: string;
+  };
+
   type getAvatarUsingGETParams = {
     /** fileName */
     fileName: string;
@@ -75,6 +85,11 @@ declare namespace API {
     url?: string;
   };
 
+  type KeyVo = {
+    accessKey?: string;
+    secretKey?: string;
+  };
+
   type listInterfacesByPageUsingGETParams = {
     current?: number;
     id?: number;
@@ -100,6 +115,11 @@ declare namespace API {
     userPassword?: string;
   };
 
+  type openPermissionUsingPOSTParams = {
+    /** interfaceId */
+    interfaceId?: number;
+  };
+
   type PageBeanInterfaceInfo_ = {
     records?: InterfaceInfo[];
     total?: number;
@@ -108,6 +128,19 @@ declare namespace API {
   type PageBeanUser_ = {
     records?: User[];
     total?: number;
+  };
+
+  type PageBeanUserInterfaceInfo_ = {
+    records?: UserInterfaceInfo[];
+    total?: number;
+  };
+
+  type pageUserInterfacesUsingGETParams = {
+    current?: number;
+    id?: number;
+    interfaceInfoId?: number;
+    pageSize?: number;
+    userId?: number;
   };
 
   type RegisterDto = {
@@ -119,6 +152,12 @@ declare namespace API {
   type ResultInterfaceInfo_ = {
     code?: number;
     data?: InterfaceInfo;
+    message?: string;
+  };
+
+  type ResultKeyVo_ = {
+    code?: number;
+    data?: KeyVo;
     message?: string;
   };
 
@@ -140,6 +179,12 @@ declare namespace API {
     message?: string;
   };
 
+  type ResultPageBeanUserInterfaceInfo_ = {
+    code?: number;
+    data?: PageBeanUserInterfaceInfo_;
+    message?: string;
+  };
+
   type ResultString_ = {
     code?: number;
     data?: string;
@@ -157,9 +202,15 @@ declare namespace API {
     message?: string;
   };
 
+  type sendMailUsingPOSTParams = {
+    /** email */
+    email?: string;
+  };
+
   type User = {
     accessKey?: string;
     createTime?: string;
+    email?: string;
     gender?: number;
     id?: number;
     isDeleted?: number;
@@ -174,6 +225,23 @@ declare namespace API {
     userRole?: string;
   };
 
+  type UserInterfaceInfo = {
+    createTime?: string;
+    id?: number;
+    interfaceId?: number;
+    isDeleted?: number;
+    leftNum?: number;
+    totalNum?: number;
+    updateTime?: string;
+    userId?: number;
+  };
+
+  type UserInterfaceUpdateDto = {
+    id?: number;
+    leftNum?: number;
+    totalNum?: number;
+  };
+
   type UserUpdateDto = {
     gender?: number;
     id?: number;
@@ -186,6 +254,7 @@ declare namespace API {
 
   type UserVo = {
     createTime?: string;
+    email?: string;
     gender?: number;
     id?: number;
     updateTime?: string;

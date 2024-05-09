@@ -32,6 +32,12 @@ export default [
     component: './InterfaceInfo',
     hideInMenu: true
   },
+  {
+    name: '个人信息',
+    path: '/account/info',
+    component: './info',
+    hideInMenu: true
+  },
   {path: '/', redirect: '/home'},
   {path: '*', layout: false, component: './404'},
 ];

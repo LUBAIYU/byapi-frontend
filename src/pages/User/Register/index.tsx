@@ -1,11 +1,15 @@
-import {LockOutlined, UserOutlined,} from '@ant-design/icons';
-import {LoginForm, ProFormText,} from '@ant-design/pro-components';
+import {LockOutlined, MobileOutlined, UserOutlined,} from '@ant-design/icons';
+import {LoginForm, ProFormInstance, ProFormText,} from '@ant-design/pro-components';
 import {Helmet, history} from '@umijs/max';
-import {message, Tabs} from 'antd';
+import {Button, message, Tabs} from 'antd';
 import {createStyles} from 'antd-style';
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import Settings from '../../../../config/defaultSettings';
-import {userRegisterUsingPost} from "@/services/byapi-backend/userController";
+import {
+  emailRegisterUsingPost,
+  sendMailUsingPost,
+  userRegisterUsingPost
+} from "@/services/byapi-backend/userController";
 
 
 const useStyles = createStyles(({token}) => {
@@ -45,12 +49,22 @@ const useStyles = createStyles(({token}) => {
 });
 const Register: React.FC = () => {
   const {styles} = useStyles();
-  const handleSubmit = async (values: API.RegisterDto) => {
+  const [activeTab, setActiveTab] = useState<string>('account')
+  const formRef = useRef<ProFormInstance>(null)
+
+  const handleSubmit = async (values: any) => {
     try {
-      // 注册
-      const res = await userRegisterUsingPost({
-        ...values,
-      });
+      // 根据不同的注册方式执行不同的方法
+      let res;
+      if (activeTab === 'account') {
+        res = await userRegisterUsingPost({
+          ...values,
+        });
+      } else {
+        res = await emailRegisterUsingPost({
+          ...values
+        })
+      }
       if (res.code === 200) {
         message.success("注册成功");
         history.push('/user/login');
@@ -62,6 +76,20 @@ const Register: React.FC = () => {
       message.error(error.message);
     }
   };
+
+  //发送邮件
+  const sendMail = async () => {
+    const value = formRef?.current?.getFieldValue("email")
+    const res = await sendMailUsingPost({
+      email: value
+    })
+    if (res.code === 200) {
+      message.success('发送成功')
+    } else {
+      message.error(res.message)
+    }
+  }
+
   return (
     <div className={styles.container}>
       <Helmet>
@@ -76,6 +104,7 @@ const Register: React.FC = () => {
         }}
       >
         <LoginForm
+          formRef={formRef}
           contentStyle={{
             minWidth: 280,
             maxWidth: '75vw',
@@ -94,81 +123,137 @@ const Register: React.FC = () => {
         >
           <Tabs
             centered
+            activeKey={activeTab}
+            onChange={(key) => setActiveTab(key)}
             items={[
               {
                 key: 'account',
                 label: '用户注册',
               },
-            ]}
-          />
-          <ProFormText
-            name="userAccount"
-            fieldProps={{
-              size: 'large',
-              prefix: <UserOutlined/>,
-            }}
-            placeholder={'请输入账号'}
-            rules={[
               {
-                required: true,
-                message: '账号是必填项！',
-              },
-              {
-                min: 4,
-                message: '账号长度不能小于4位！',
+                key: 'email',
+                label: '邮箱注册'
               }
             ]}
           />
-          <ProFormText.Password
-            name="userPassword"
-            fieldProps={{
-              size: 'large',
-              prefix: <LockOutlined/>,
-            }}
-            placeholder={'请输入密码'}
-            rules={[
-              {
-                required: true,
-                message: '密码是必填项！',
-              },
-              {
-                min: 8,
-                message: '密码长度不能小于8位！'
-              }
-            ]}
-          />
-          <ProFormText.Password
-            name="checkPassword"
-            fieldProps={{
-              size: 'large',
-              prefix: <LockOutlined/>,
-            }}
-            placeholder={'请输入确认密码'}
-            rules={[
-              {
-                required: true,
-                message: '确认密码是必填项！',
-              },
-              ({getFieldValue}) => ({
-                validator(_, value) {
-                  if (!value || getFieldValue('userPassword') === value) {
-                    return Promise.resolve();
+          {activeTab === 'account' && (
+            <>
+              <ProFormText
+                name="userAccount"
+                fieldProps={{
+                  size: 'large',
+                  prefix: <UserOutlined/>,
+                }}
+                placeholder={'请输入账号'}
+                rules={[
+                  {
+                    required: true,
+                    message: '账号是必填项！',
+                  },
+                  {
+                    min: 4,
+                    message: '账号长度不能小于4位！',
                   }
-                  return Promise.reject(new Error('密码不一致!'));
-                },
-              }),
-            ]}
-          />
-          <div
-            style={{
-              marginBottom: 24,
-            }}
-          >
+                ]}
+              />
+              <ProFormText.Password
+                name="userPassword"
+                fieldProps={{
+                  size: 'large',
+                  prefix: <LockOutlined/>,
+                }}
+                placeholder={'请输入密码'}
+                rules={[
+                  {
+                    required: true,
+                    message: '密码是必填项！',
+                  },
+                  {
+                    min: 8,
+                    message: '密码长度不能小于8位！'
+                  }
+                ]}
+              />
+              <ProFormText.Password
+                name="checkPassword"
+                fieldProps={{
+                  size: 'large',
+                  prefix: <LockOutlined/>,
+                }}
+                placeholder={'请输入确认密码'}
+                rules={[
+                  {
+                    required: true,
+                    message: '确认密码是必填项！',
+                  },
+                  ({getFieldValue}) => ({
+                    validator(_, value) {
+                      if (!value || getFieldValue('userPassword') === value) {
+                        return Promise.resolve();
+                      }
+                      return Promise.reject(new Error('密码不一致!'));
+                    },
+                  }),
+                ]}
+              />
+              <div
+                style={{
+                  marginBottom: 24,
+                }}
+              >
             <span style={{float: 'right', marginTop: -10, marginBottom: 10}}>
               已经有账号？
               <a href={'/user/login'}>去登录</a>
             </span>
-          </div>
+              </div>
+            </>
+          )}
+          {activeTab === 'email' && (
+            <>
+              <ProFormText
+                name="email"
+                fieldProps={{
+                  size: 'large',
+                  prefix: <MobileOutlined/>,
+                }}
+                placeholder={'请输入QQ邮箱'}
+                rules={[
+                  {
+                    required: true,
+                    message: '邮箱是必填项！',
+                  },
+                ]}
+              />
+              <div style={{display: "flex"}}>
+                <ProFormText
+                  width={214}
+                  name="verCode"
+                  fieldProps={{
+                    size: 'large',
+                    prefix: <LockOutlined/>,
+                  }}
+                  placeholder={'请输入验证码'}
+                  rules={[
+                    {
+                      required: true,
+                      message: '验证码是必填项！',
+                    },
+                  ]}
+                />
+                <Button onClick={() => sendMail()} style={{height: 39.6, marginLeft: 10}}>获取验证码</Button>
+              </div>
+              <div
+                style={{
+                  marginBottom: 24,
+                }}
+              >
+            <span style={{float: 'right', marginTop: -10, marginBottom: 10}}>
+              已经有账号？
+              <a href={'/user/login'}>去登录</a>
+            </span>
+              </div>
+            </>
+          )}
         </LoginForm>
       </div>
     </div>

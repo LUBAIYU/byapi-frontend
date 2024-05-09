@@ -89,6 +89,7 @@ const Index: React.FC = () => {
         {
           record ? <Descriptions items={items} column={1}/> : <>接口不存在</>
         }
+        <Button type={"primary"}>开通接口调用权限</Button>
       </Card>
       <Divider/>
       <Card title="在线调试">

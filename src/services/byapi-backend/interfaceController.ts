@@ -75,6 +75,21 @@ export async function invokeInterfaceUsingPost(
   });
 }
 
+/** openPermission POST /interface/open */
+export async function openPermissionUsingPost(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.openPermissionUsingPOSTParams,
+  options?: { [key: string]: any },
+) {
+  return request<API.ResultVoid_>('/interface/open', {
+    method: 'POST',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}
+
 /** listInterfacesByPage GET /interface/page */
 export async function listInterfacesByPageUsingGet(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)

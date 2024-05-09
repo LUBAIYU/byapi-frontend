@@ -17,6 +17,14 @@ export async function alterStatusUsingPut1(
   });
 }
 
+/** applyKey POST /user/apply/key */
+export async function applyKeyUsingPost(options?: { [key: string]: any }) {
+  return request<API.ResultKeyVo_>('/user/apply/key', {
+    method: 'POST',
+    ...(options || {}),
+  });
+}
+
 /** deleteUser DELETE /user/delete/${param0} */
 export async function deleteUserUsingDelete(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
@@ -27,6 +35,30 @@ export async function deleteUserUsingDelete(
   return request<API.ResultVoid_>(`/user/delete/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
+    ...(options || {}),
+  });
+}
+
+/** emailLogin POST /user/email/login */
+export async function emailLoginUsingPost(body: API.EmailDto, options?: { [key: string]: any }) {
+  return request<API.ResultUserVo_>('/user/email/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** emailRegister POST /user/email/register */
+export async function emailRegisterUsingPost(body: API.EmailDto, options?: { [key: string]: any }) {
+  return request<API.ResultVoid_>('/user/email/register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
     ...(options || {}),
   });
 }
@@ -69,6 +101,21 @@ export async function userLoginUsingPost(body: API.LoginDto, options?: { [key: s
 export async function userLogoutUsingPost(options?: { [key: string]: any }) {
   return request<API.ResultVoid_>('/user/logout', {
     method: 'POST',
+    ...(options || {}),
+  });
+}
+
+/** sendMail POST /user/mail/send */
+export async function sendMailUsingPost(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.sendMailUsingPOSTParams,
+  options?: { [key: string]: any },
+) {
+  return request<API.ResultVoid_>('/user/mail/send', {
+    method: 'POST',
+    params: {
+      ...params,
+    },
     ...(options || {}),
   });
 }

@@ -22,7 +22,7 @@ const Index: React.FC = () => {
   }
 
   useEffect(() => {
-    getDataList();
+    getDataList().then();
   }, []);
 
   return (
@@ -48,7 +48,7 @@ const Index: React.FC = () => {
             return `共 ${total} 条数据`
           },
           onChange: (current, pageSize) => {
-            getDataList(current, pageSize);
+            getDataList(current, pageSize).then();
           }
         }}
       />
