@@ -53,7 +53,7 @@ export async function getInterfaceByIdUsingGet(
   options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<API.ResultInterfaceInfo_>(`/interface/get/${param0}`, {
+  return request<API.ResultInterfaceVo_>(`/interface/get/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
     ...(options || {}),

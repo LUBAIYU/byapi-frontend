@@ -4,6 +4,7 @@ import {getLoginUserUsingGet} from "@/services/byapi-backend/userController";
 import {RunTimeLayoutConfig} from "@@/plugin-layout/types";
 import React from "react";
 import {AvatarDropdown, AvatarName, Question} from "@/components";
+import {Image} from "antd";
 
 const loginPath = '/user/login';
 const registerPath = '/user/register';
@@ -35,6 +36,10 @@ export async function getInitialState(): Promise<InitialState> {
 //退出登录，头像显示
 export const layout: RunTimeLayoutConfig = ({initialState}) => {
   return {
+    title: 'By API',
+    logo: (
+      <Image width={30} height={30} src={'https://img2.imgtp.com/2024/05/10/226I3pTg.svg'}/>
+    ),
     actionsRender: () => [<Question key="doc"/>],
     avatarProps: {
       src: initialState?.loginUser?.userAvatar,

@@ -9,47 +9,52 @@ import {
 } from "@/services/byapi-backend/interfaceController";
 
 const Index: React.FC = () => {
-  const [record, setRecord] = useState<API.InterfaceInfo>();
+  const [record, setRecord] = useState<API.InterfaceVo>();
   const [invokeResult, setInvokeResult] = useState<any>()
 
   const items: DescriptionsProps['items'] = [
     {
       key: 1,
-      label: '接口名称',
-      children: record?.name
-    },
-    {
-      key: 2,
       label: '接口描述',
       children: record?.description
     },
-    {
+    ...(record?.totalNum !== null ? [{
+      key: 2,
+      label: '接口总调用次数',
+      children: record?.totalNum
+    }] : []),
+    ...(record?.leftNum !== null ? [{
       key: 3,
+      label: '接口剩余调用次数',
+      children: record?.leftNum
+    }] : []),
+    {
+      key: 4,
       label: '接口地址',
       children: record?.url
     },
     {
-      key: 4,
+      key: 5,
       label: '请求类型',
       children: record?.method
     },
     {
-      key: 5,
+      key: 6,
       label: '请求参数',
       children: record?.requestParams
     },
     {
-      key: 6,
+      key: 7,
       label: '请求头',
       children: record?.requestHeader
     },
     {
-      key: 7,
+      key: 8,
       label: '响应头',
       children: record?.responseHeader
     },
     {
-      key: 8,
+      key: 9,
       label: '接口状态',
       children: record?.status === 0 ? '关闭' : '开启'
     },
@@ -78,6 +83,7 @@ const Index: React.FC = () => {
     })
     if (res.code === 200) {
       setInvokeResult(res.data)
+      getInterfaceInfoById().then()
     } else {
       message.error(res.message)
     }
@@ -90,6 +96,7 @@ const Index: React.FC = () => {
     })
     if (res.code === 200) {
       message.success('开通成功')
+      getInterfaceInfoById().then()
     } else {
       message.error(res.message)
     }
@@ -103,9 +110,11 @@ const Index: React.FC = () => {
     <PageContainer title="">
       <Card>
         {
-          record ? <Descriptions items={items} column={1}/> : <>接口不存在</>
+          record ? <Descriptions title={record.name} items={items} column={1}/> : <>接口不存在</>
         }
-        <Button onClick={openPermission} type={"primary"}>开通接口调用权限</Button>
+        {record?.totalNum === null && record?.leftNum === null && (
+          <Button onClick={openPermission} type={"primary"}>开通接口调用权限</Button>
+        )}
       </Card>
       <Divider/>
       <Card title="在线调试">

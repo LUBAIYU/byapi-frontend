@@ -85,6 +85,23 @@ declare namespace API {
     url?: string;
   };
 
+  type InterfaceVo = {
+    createTime?: string;
+    description?: string;
+    id?: number;
+    isDeleted?: number;
+    leftNum?: number;
+    method?: string;
+    name?: string;
+    requestHeader?: string;
+    requestParams?: string;
+    responseHeader?: string;
+    status?: number;
+    totalNum?: number;
+    updateTime?: string;
+    url?: string;
+  };
+
   type KeyVo = {
     accessKey?: string;
     secretKey?: string;
@@ -149,9 +166,9 @@ declare namespace API {
     userPassword?: string;
   };
 
-  type ResultInterfaceInfo_ = {
+  type ResultInterfaceVo_ = {
     code?: number;
-    data?: InterfaceInfo;
+    data?: InterfaceVo;
     message?: string;
   };
 
@@ -243,6 +260,7 @@ declare namespace API {
   };
 
   type UserUpdateDto = {
+    email?: string;
     gender?: number;
     id?: number;
     status?: number;

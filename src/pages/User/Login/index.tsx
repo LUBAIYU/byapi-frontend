@@ -109,8 +109,8 @@ const Login: React.FC = () => {
             minWidth: 280,
             maxWidth: '75vw',
           }}
-          logo={<img alt="logo" src="/logo.svg"/>}
-          title="API 接口开放平台"
+          logo={<img alt="logo" src="https://img2.imgtp.com/2024/05/10/226I3pTg.svg"/>}
+          title="By API"
           subTitle={'一个基于API网关的接口开放平台'}
           onFinish={async (values) => {
             await handleSubmit(values);
