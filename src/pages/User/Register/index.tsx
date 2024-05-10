@@ -10,6 +10,7 @@ import {
   sendMailUsingPost,
   userRegisterUsingPost
 } from "@/services/byapi-backend/userController";
+import {Footer} from "@/components";
 
 
 const useStyles = createStyles(({token}) => {
@@ -256,6 +257,7 @@ const Register: React.FC = () => {
           )}
         </LoginForm>
       </div>
+      <Footer/>
     </div>
   );
 };

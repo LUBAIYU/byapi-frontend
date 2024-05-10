@@ -6,6 +6,7 @@ import {createStyles} from 'antd-style';
 import React, {useRef, useState} from 'react';
 import Settings from '../../../../config/defaultSettings';
 import {emailLoginUsingPost, sendMailUsingPost, userLoginUsingPost} from "@/services/byapi-backend/userController";
+import {Footer} from "@/components";
 
 const useStyles = createStyles(({token}) => {
   return {
@@ -229,6 +230,7 @@ const Login: React.FC = () => {
           )}
         </LoginForm>
       </div>
+      <Footer/>
     </div>
   );
 };

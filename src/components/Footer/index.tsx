@@ -1,5 +1,5 @@
-import { GithubOutlined } from '@ant-design/icons';
-import { DefaultFooter } from '@ant-design/pro-components';
+import {BookFilled, GithubOutlined} from '@ant-design/icons';
+import {DefaultFooter} from '@ant-design/pro-components';
 import React from 'react';
 
 const Footer: React.FC = () => {
@@ -8,23 +8,28 @@ const Footer: React.FC = () => {
       style={{
         background: 'none',
       }}
+      copyright={'2024 路白榆出品'}
       links={[
         {
-          key: 'Ant Design Pro',
-          title: 'Ant Design Pro',
-          href: 'https://pro.ant.design',
+          key: 'blog',
+          title: (
+            <span>
+              <span style={{marginRight: 5}}>Blog</span>
+              <BookFilled/>
+            </span>
+          ),
+          href: 'https://pro-test.asia',
           blankTarget: true,
         },
         {
-          key: 'github',
-          title: <GithubOutlined />,
-          href: 'https://github.com/ant-design/ant-design-pro',
-          blankTarget: true,
-        },
-        {
-          key: 'Ant Design',
-          title: 'Ant Design',
-          href: 'https://ant.design',
+          key: 'Github',
+          title: (
+            <span>
+              <span style={{marginRight: 5}}>GitHub</span>
+               <GithubOutlined/>
+            </span>
+          ),
+          href: 'https://github.com/LUBAIYU',
           blankTarget: true,
         },
       ]}
