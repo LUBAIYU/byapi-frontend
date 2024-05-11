@@ -1,4 +1,9 @@
 declare namespace API {
+  type addInvokeCountUsingPOSTParams = {
+    /** interfaceId */
+    interfaceId?: number;
+  };
+
   type alterStatusUsingPUT1Params = {
     /** id */
     id?: number;
@@ -175,6 +180,12 @@ declare namespace API {
   type ResultKeyVo_ = {
     code?: number;
     data?: KeyVo;
+    message?: string;
+  };
+
+  type ResultListInterfaceVo_ = {
+    code?: number;
+    data?: InterfaceVo[];
     message?: string;
   };
 

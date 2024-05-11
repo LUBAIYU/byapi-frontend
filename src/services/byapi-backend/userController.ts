@@ -77,6 +77,14 @@ export async function getAvatarUsingGet(
   });
 }
 
+/** getKeyById GET /user/get/key */
+export async function getKeyByIdUsingGet(options?: { [key: string]: any }) {
+  return request<API.ResultKeyVo_>('/user/get/key', {
+    method: 'GET',
+    ...(options || {}),
+  });
+}
+
 /** getLoginUser GET /user/get/loginUser */
 export async function getLoginUserUsingGet(options?: { [key: string]: any }) {
   return request<API.ResultUserVo_>('/user/get/loginUser', {

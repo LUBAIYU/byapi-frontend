@@ -2,6 +2,21 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
+/** addInvokeCount POST /userInterface/add/count */
+export async function addInvokeCountUsingPost(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.addInvokeCountUsingPOSTParams,
+  options?: { [key: string]: any },
+) {
+  return request<API.ResultVoid_>('/userInterface/add/count', {
+    method: 'POST',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}
+
 /** delUserInterface DELETE /userInterface/delete */
 export async function delUserInterfaceUsingDelete(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)

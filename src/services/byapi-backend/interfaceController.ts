@@ -75,6 +75,14 @@ export async function invokeInterfaceUsingPost(
   });
 }
 
+/** listInvokeRecords GET /interface/list/record */
+export async function listInvokeRecordsUsingGet(options?: { [key: string]: any }) {
+  return request<API.ResultListInterfaceVo_>('/interface/list/record', {
+    method: 'GET',
+    ...(options || {}),
+  });
+}
+
 /** openPermission POST /interface/open */
 export async function openPermissionUsingPost(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)

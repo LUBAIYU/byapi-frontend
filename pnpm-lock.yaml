@@ -4974,7 +4974,7 @@ packages:
 
   /@stylelint/postcss-css-in-js@0.37.3(postcss-syntax@0.36.2)(postcss@7.0.39):
     resolution: {integrity: sha512-scLk3cSH1H9KggSniseb2KNAU5D9FWc3H7BxCSAIdtU9OWIyw0zkEZ9qEKHryRM+SExYXRKNb7tOOVNAsQ3iwg==}
-    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more Info.
     peerDependencies:
       postcss: '>=7.0.0'
       postcss-syntax: '>=0.36.2'
@@ -4988,7 +4988,7 @@ packages:
 
   /@stylelint/postcss-css-in-js@0.38.0(postcss-syntax@0.36.2)(postcss@8.4.33):
     resolution: {integrity: sha512-XOz5CAe49kS95p5yRd+DAIWDojTjfmyAQ4bbDlXMdbZTQ5t0ThjSLvWI6JI2uiS7MFurVBkZ6zUqcimzcLTBoQ==}
-    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more Info.
     peerDependencies:
       postcss: '>=7.0.0'
       postcss-syntax: '>=0.36.2'
@@ -9338,7 +9338,7 @@ packages:
 
   /debuglog@1.0.1:
     resolution: {integrity: sha512-syBZ+rnAK3EgMsH2aYEOLUW7mZSY9Gb+0wUMCFsZvcmiz+HigA0LOcq/HoQqVuGG+EKykunc7QG2bzrponfaSw==}
-    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more Info.
     dev: true
 
   /decamelize-keys@1.1.1:

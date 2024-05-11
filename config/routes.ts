@@ -34,8 +34,8 @@ export default [
   },
   {
     name: '个人信息',
-    path: '/account/info',
-    component: './info',
+    path: '/account/Info',
+    component: './Info',
     hideInMenu: true
   },
   {path: '/', redirect: '/home'},

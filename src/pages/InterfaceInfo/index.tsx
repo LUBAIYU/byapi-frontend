@@ -7,6 +7,7 @@ import {
   invokeInterfaceUsingPost,
   openPermissionUsingPost
 } from "@/services/byapi-backend/interfaceController";
+import {addInvokeCountUsingPost} from "@/services/byapi-backend/userInterfaceController";
 
 const Index: React.FC = () => {
   const [record, setRecord] = useState<API.InterfaceVo>();
@@ -102,15 +103,29 @@ const Index: React.FC = () => {
     }
   }
 
+  //获取接口调用次数
+  const addInvokeCount = async () => {
+    const res = await addInvokeCountUsingPost({
+      interfaceId: Number(params.id)
+    })
+    if (res.code === 200) {
+      message.success('获取成功')
+      getInterfaceInfoById().then()
+    } else {
+      message.error(res.message)
+    }
+  }
+
   useEffect(() => {
     getInterfaceInfoById().then();
   }, []);
 
   return (
     <PageContainer title="">
-      <Card>
+      <Card title={record?.name}
+            extra={record?.leftNum === 0 && (<Button onClick={addInvokeCount} type={"link"}>获取调用次数</Button>)}>
         {
-          record ? <Descriptions title={record.name} items={items} column={1}/> : <>接口不存在</>
+          record ? <Descriptions items={items} column={1}/> : <>接口不存在</>
         }
         {record?.totalNum === null && record?.leftNum === null && (
           <Button onClick={openPermission} type={"primary"}>开通接口调用权限</Button>
