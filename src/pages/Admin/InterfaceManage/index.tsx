@@ -214,7 +214,7 @@ const InterfaceInfoManage: React.FC = () => {
                       cancelText="取消"
                       onConfirm={() => deleteInterfaceInfo(record)}
                       onCancel={() => {
-                        message.info("已取消删除");
+                        message.info("已取消删除").then();
                       }}>
             <Button key="delete" type={"link"} danger>
               删除
@@ -246,7 +246,7 @@ const InterfaceInfoManage: React.FC = () => {
         headerTitle={"接口管理"}
         rowKey="key"
         actionRef={actionRef}
-        scroll={{x: true}}
+        scroll={{x: 2000}}
         search={{
           labelWidth: 120,
         }}

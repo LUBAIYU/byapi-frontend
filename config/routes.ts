@@ -38,6 +38,12 @@ export default [
     component: './Info',
     hideInMenu: true
   },
+  {
+    name: '调用记录',
+    path: '/interface/record',
+    component: './Record',
+    icon: 'BookOutlined',
+  },
   {path: '/', redirect: '/home'},
   {path: '*', layout: false, component: './404'},
 ];
