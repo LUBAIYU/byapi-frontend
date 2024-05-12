@@ -39,6 +39,14 @@ export async function deleteUserUsingDelete(
   });
 }
 
+/** downloadJar GET /user/download/jar */
+export async function downloadJarUsingGet(options?: { [key: string]: any }) {
+  return request<any>('/user/download/jar', {
+    method: 'GET',
+    ...(options || {}),
+  });
+}
+
 /** emailLogin POST /user/email/login */
 export async function emailLoginUsingPost(body: API.EmailDto, options?: { [key: string]: any }) {
   return request<API.ResultUserVo_>('/user/email/login', {

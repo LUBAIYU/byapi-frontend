@@ -58,6 +58,24 @@ const Record: React.FC = () => {
     )
   }))
 
+  //下载SDK
+  const downloadSDK = async () => {
+    try {
+      const link = document.createElement('a');
+      link.href = 'http://localhost:9000/api/user/download/jar';
+      // 设置下载属性，让浏览器弹出下载对话框
+      link.setAttribute('download', '');
+      document.body.appendChild(link);
+      // 触发点击事件，开始下载
+      link.click();
+      // 下载完成后移除元素
+      document.body.removeChild(link);
+      message.success('下载成功');
+    } catch (error) {
+      message.error('下载失败');
+    }
+  }
+
   useEffect(() => {
     listInvokeRecords().then()
     getKeyData().then()
@@ -96,7 +114,7 @@ const Record: React.FC = () => {
         ]}>
         </ProTable>
         <Button onClick={() => setShow(true)} style={{marginLeft: 10}} type={"link"}>显示密钥</Button>
-        <Button type={"link"}>下载SDK</Button>
+        <Button onClick={downloadSDK} type={"link"}>下载SDK</Button>
       </Card>
     </PageContainer>
   )
