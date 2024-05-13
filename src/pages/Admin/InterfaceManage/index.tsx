@@ -1,19 +1,21 @@
-import React, {useRef, useState} from "react";
-import {ActionType, PageContainer, ProColumns, ProTable} from "@ant-design/pro-components";
-import {Button, message, Popconfirm} from "antd";
-import {PlusOutlined} from "@ant-design/icons";
-import UpdateModal from "@/pages/Admin/InterfaceManage/components/UpdateModal";
-import AddModal from "@/pages/Admin/InterfaceManage/components/AddModal";
+import AddModal from '@/pages/Admin/InterfaceManage/components/AddModal';
+import UpdateModal from '@/pages/Admin/InterfaceManage/components/UpdateModal';
 import {
-  addInterfaceUsingPost, alterStatusUsingPut,
-  deleteInterfaceUsingDelete, listInterfacesByPageUsingGet,
-  updateInterfaceUsingPut
-} from "@/services/byapi-backend/interfaceController";
+  addInterfaceUsingPost,
+  alterStatusUsingPut,
+  deleteInterfaceUsingDelete,
+  listInterfacesByPageUsingGet,
+  updateInterfaceUsingPut,
+} from '@/services/byapi-backend/interfaceController';
+import { PlusOutlined } from '@ant-design/icons';
+import { ActionType, PageContainer, ProColumns, ProTable } from '@ant-design/pro-components';
+import { Button, Popconfirm, message } from 'antd';
+import React, { useRef, useState } from 'react';
 
 const InterfaceInfoManage: React.FC = () => {
   //引用对象
   const actionRef = useRef<ActionType>();
-  const [currentRow, setCurrentRow] = useState<API.InterfaceInfo>()
+  const [currentRow, setCurrentRow] = useState<API.InterfaceInfo>();
   const [addModalVisible, handleAddModalVisible] = useState<boolean>(false);
   const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(false);
 
@@ -21,13 +23,13 @@ const InterfaceInfoManage: React.FC = () => {
    * 新增接口
    */
   const addInterfaceInfo = async (fields: API.InterfaceAddDto) => {
-    const hide = message.loading("新增中");
+    const hide = message.loading('新增中');
     const res = await addInterfaceUsingPost({
-      ...fields
-    })
+      ...fields,
+    });
     hide();
     if (res.code === 200) {
-      message.success("新增成功");
+      message.success('新增成功');
       handleAddModalVisible(false);
       actionRef.current?.reload();
     } else {
@@ -39,14 +41,14 @@ const InterfaceInfoManage: React.FC = () => {
    * 修改接口
    */
   const updateInterfaceInfo = async (fields: API.InterfaceInfo) => {
-    const hide = message.loading("修改中");
+    const hide = message.loading('修改中');
     const res = await updateInterfaceUsingPut({
       id: currentRow?.id,
-      ...fields
-    })
+      ...fields,
+    });
     hide();
     if (res.code === 200) {
-      message.success("修改成功");
+      message.success('修改成功');
       handleUpdateModalVisible(false);
       setCurrentRow(undefined);
       actionRef.current?.reload();
@@ -59,16 +61,16 @@ const InterfaceInfoManage: React.FC = () => {
    * 删除接口
    */
   const deleteInterfaceInfo = async (record: API.InterfaceInfo) => {
-    const hide = message.loading("删除中");
+    const hide = message.loading('删除中');
     if (!record) {
       return;
     }
     const res = await deleteInterfaceUsingDelete({
-      id: record.id
-    } as API.deleteInterfaceUsingDELETEParams)
+      id: record.id,
+    } as API.deleteInterfaceUsingDELETEParams);
     hide();
     if (res.code === 200) {
-      message.success("删除成功");
+      message.success('删除成功');
       actionRef.current?.reload();
     } else {
       message.error(res.message);
@@ -79,23 +81,23 @@ const InterfaceInfoManage: React.FC = () => {
    * 修改接口状态
    */
   const updateStatus = async (record: API.InterfaceInfo) => {
-    const hide = message.loading("修改中");
+    const hide = message.loading('修改中');
     let newStatus = 0;
     if (record.status === 0) {
       newStatus = 1;
     }
     const res = await alterStatusUsingPut({
       id: record.id,
-      status: newStatus
+      status: newStatus,
     });
     hide();
     if (res.code === 200) {
-      message.success("修改成功");
+      message.success('修改成功');
       actionRef.current?.reload();
     } else {
       message.error(res.message);
     }
-  }
+  };
 
   //定义数据列表
   const columns: ProColumns<API.InterfaceInfo>[] = [
@@ -117,7 +119,7 @@ const InterfaceInfoManage: React.FC = () => {
       dataIndex: 'description',
       valueType: 'textarea',
       align: 'center',
-      hideInSearch: true
+      hideInSearch: true,
     },
     {
       title: '接口地址',
@@ -129,18 +131,18 @@ const InterfaceInfoManage: React.FC = () => {
       title: '请求类型',
       dataIndex: 'method',
       valueEnum: {
-        'GET': {
-          text: 'GET'
+        GET: {
+          text: 'GET',
         },
-        'POST': {
+        POST: {
           text: 'POST',
         },
-        'PUT': {
+        PUT: {
           text: 'PUT',
         },
-        'DELETE': {
+        DELETE: {
           text: 'DELETE',
-        }
+        },
       },
       align: 'center',
     },
@@ -149,21 +151,21 @@ const InterfaceInfoManage: React.FC = () => {
       dataIndex: 'requestParams',
       valueType: 'jsonCode',
       align: 'center',
-      hideInSearch: true
+      hideInSearch: true,
     },
     {
       title: '请求头',
       dataIndex: 'requestHeader',
       valueType: 'jsonCode',
       align: 'center',
-      hideInSearch: true
+      hideInSearch: true,
     },
     {
       title: '响应头',
       dataIndex: 'responseHeader',
       valueType: 'jsonCode',
       align: 'center',
-      hideInSearch: true
+      hideInSearch: true,
     },
     {
       title: '接口状态',
@@ -171,14 +173,21 @@ const InterfaceInfoManage: React.FC = () => {
       valueEnum: {
         0: {
           text: '关闭',
-          status: 'Default'
+          status: 'Default',
         },
         1: {
           text: '开启',
-          status: 'Success'
-        }
+          status: 'Success',
+        },
       },
       align: 'center',
+    },
+    {
+      title: '示例代码',
+      dataIndex: 'codeExample',
+      valueType: 'code',
+      align: 'center',
+      hideInSearch: true,
     },
     {
       title: '创建时间',
@@ -186,7 +195,7 @@ const InterfaceInfoManage: React.FC = () => {
       valueType: 'dateTime',
       align: 'center',
       hideInSearch: true,
-      hideInForm: true
+      hideInForm: true,
     },
     {
       title: '更新时间',
@@ -194,7 +203,7 @@ const InterfaceInfoManage: React.FC = () => {
       valueType: 'dateTime',
       align: 'center',
       hideInSearch: true,
-      hideInForm: true
+      hideInForm: true,
     },
     {
       title: '操作',
@@ -203,50 +212,58 @@ const InterfaceInfoManage: React.FC = () => {
       render: (_, record) => {
         const buttons = [];
         buttons.push(
-          <Button key="edit" type={"link"} onClick={() => {
-            handleUpdateModalVisible(true);
-            setCurrentRow(record);
-          }}>
+          <Button
+            key="edit"
+            type={'link'}
+            onClick={() => {
+              handleUpdateModalVisible(true);
+              setCurrentRow(record);
+            }}
+          >
             修改
           </Button>,
-          <Popconfirm key="pop" title="是否删除" description="确定删除这条数据吗？"
-                      okText="确定"
-                      cancelText="取消"
-                      onConfirm={() => deleteInterfaceInfo(record)}
-                      onCancel={() => {
-                        message.info("已取消删除").then();
-                      }}>
-            <Button key="delete" type={"link"} danger>
+          <Popconfirm
+            key="pop"
+            title="是否删除"
+            description="确定删除这条数据吗？"
+            okText="确定"
+            cancelText="取消"
+            onConfirm={() => deleteInterfaceInfo(record)}
+            onCancel={() => {
+              message.info('已取消删除').then();
+            }}
+          >
+            <Button key="delete" type={'link'} danger>
               删除
             </Button>
-          </Popconfirm>
+          </Popconfirm>,
         );
         if (record.status === 0) {
           buttons.push(
-            <Button key="online" type={"link"} onClick={() => updateStatus(record)}>
+            <Button key="online" type={'link'} onClick={() => updateStatus(record)}>
               发布
-            </Button>
-          )
+            </Button>,
+          );
         } else {
           buttons.push(
-            <Button key="outline" danger type={"link"} onClick={() => updateStatus(record)}>
+            <Button key="outline" danger type={'link'} onClick={() => updateStatus(record)}>
               下线
-            </Button>
-          )
+            </Button>,
+          );
         }
         return buttons;
       },
       align: 'center',
-    }
-  ]
+    },
+  ];
 
   return (
     <PageContainer>
       <ProTable<API.InterfaceInfo, API.listInterfacesByPageUsingGETParams>
-        headerTitle={"接口管理"}
+        headerTitle={'接口管理'}
         rowKey="key"
         actionRef={actionRef}
-        scroll={{x: 2000}}
+        scroll={{ x: 2800 }}
         search={{
           labelWidth: 120,
         }}
@@ -258,50 +275,51 @@ const InterfaceInfoManage: React.FC = () => {
               handleAddModalVisible(true);
             }}
           >
-            <PlusOutlined/> 新增接口
+            <PlusOutlined /> 新增接口
           </Button>,
         ]}
-        request={async (
-          params,
-        ) => {
+        request={async (params) => {
           const res = await listInterfacesByPageUsingGet({
-            ...params
+            ...params,
           });
           if (res.data) {
             return {
               data: res?.data.records,
               success: true,
               total: res?.data.total,
-            }
+            };
           }
           return {
             data: [],
             success: false,
-            total: 0
-          }
+            total: 0,
+          };
         }}
-        columns={columns}>
-      </ProTable>
-      <AddModal columns={columns}
-                onCancel={() => {
-                  handleAddModalVisible(false);
-                }}
-                onSubmit={async (values) => {
-                  await addInterfaceInfo(values);
-                }}
-                visible={addModalVisible}>
-      </AddModal>
-      <UpdateModal columns={columns} visible={updateModalVisible}
-                   onCancel={() => {
-                     handleUpdateModalVisible(false);
-                   }}
-                   onSubmit={async (values) => {
-                     await updateInterfaceInfo(values)
-                   }}
-                   values={currentRow || {}}>
-      </UpdateModal>
+        columns={columns}
+      ></ProTable>
+      <AddModal
+        columns={columns}
+        onCancel={() => {
+          handleAddModalVisible(false);
+        }}
+        onSubmit={async (values) => {
+          await addInterfaceInfo(values);
+        }}
+        visible={addModalVisible}
+      ></AddModal>
+      <UpdateModal
+        columns={columns}
+        visible={updateModalVisible}
+        onCancel={() => {
+          handleUpdateModalVisible(false);
+        }}
+        onSubmit={async (values) => {
+          await updateInterfaceInfo(values);
+        }}
+        values={currentRow || {}}
+      ></UpdateModal>
     </PageContainer>
-  )
-}
+  );
+};
 
 export default InterfaceInfoManage;

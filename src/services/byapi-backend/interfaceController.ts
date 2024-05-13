@@ -60,6 +60,21 @@ export async function getInterfaceByIdUsingGet(
   });
 }
 
+/** getCodeExample GET /interface/get/code */
+export async function getCodeExampleUsingGet(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.getCodeExampleUsingGETParams,
+  options?: { [key: string]: any },
+) {
+  return request<API.ResultString_>('/interface/get/code', {
+    method: 'GET',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}
+
 /** invokeInterface POST /interface/invoke */
 export async function invokeInterfaceUsingPost(
   body: API.InterfaceInvokeDto,

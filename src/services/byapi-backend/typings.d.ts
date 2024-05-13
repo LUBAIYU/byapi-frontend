@@ -43,6 +43,11 @@ declare namespace API {
     fileName: string;
   };
 
+  type getCodeExampleUsingGETParams = {
+    /** interfaceId */
+    interfaceId?: number;
+  };
+
   type getInterfaceByIdUsingGETParams = {
     /** id */
     id: number;
@@ -60,6 +65,7 @@ declare namespace API {
   };
 
   type InterfaceInfo = {
+    codeExample?: string;
     createTime?: string;
     description?: string;
     id?: number;
@@ -80,6 +86,7 @@ declare namespace API {
   };
 
   type InterfaceUpdateDto = {
+    codeExample?: string;
     description?: string;
     id?: number;
     method?: string;
@@ -91,6 +98,7 @@ declare namespace API {
   };
 
   type InterfaceVo = {
+    codeExample?: string;
     createTime?: string;
     description?: string;
     id?: number;
