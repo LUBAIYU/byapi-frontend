@@ -115,6 +115,11 @@ declare namespace API {
     url?: string;
   };
 
+  type InvokeCountVo = {
+    count?: number;
+    name?: string;
+  };
+
   type KeyVo = {
     accessKey?: string;
     secretKey?: string;
@@ -194,6 +199,12 @@ declare namespace API {
   type ResultListInterfaceVo_ = {
     code?: number;
     data?: InterfaceVo[];
+    message?: string;
+  };
+
+  type ResultListInvokeCountVo_ = {
+    code?: number;
+    data?: InvokeCountVo[];
     message?: string;
   };
 
